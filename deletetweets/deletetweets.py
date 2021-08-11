@@ -76,3 +76,4 @@ def delete(tweetjs_path, since_date, until_date, filters, s, min_l, min_r, dry_r
         print("Number of deleted tweets: %s\n" % count)
 
     sys.exit()
+
