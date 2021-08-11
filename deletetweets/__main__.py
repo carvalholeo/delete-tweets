@@ -4,7 +4,7 @@ import argparse
 import os
 import sys
 
-from deletetweets import deletetweets
+import deletetweets
 
 __author__ = "Koen Rouwhorst"
 __version__ = "1.0.6"
@@ -42,9 +42,8 @@ def main():
 
     filters = []
 
-    if args.restrict == "reply":
+    if args.restrict == "retweets" or args.restrict == "replies":
         filters.append("replies")
-    elif args.restrict == "retweet":
         filters.append("retweets")
 
     for f in args.filters:

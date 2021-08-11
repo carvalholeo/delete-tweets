@@ -40,16 +40,17 @@ in order to create a Twitter app.
 1. Now you need to make these keys and tokens available to your shell environment.
   Assuming you are using [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)):
 
-:warning: Before you continue, you should be aware that most shells record user
-input (and thus secrets) into a history file. In Bash you could prevent this by
-prepending your command with a _single space_ (requires `$HISTCONTROL` to be set
-to `ignorespace` or `ignoreboth`).
+Steps to configure:
+
+1. Create a new `.env` file in the root of the project.
+2. Paste in the template below.
+3. Replace the key, secrets and token with the values from Twitter.
 
 ```bash
-export TWITTER_CONSUMER_KEY="your_consumer_key"
-export TWITTER_CONSUMER_SECRET="your_consumer_secret"
-export TWITTER_ACCESS_TOKEN="your_access_token"
-export TWITTER_ACCESS_TOKEN_SECRET="your_access_token_secret"
+TWITTER_CONSUMER_KEY="your_consumer_key" # this is the API Token
+TWITTER_CONSUMER_SECRET="your_consumer_secret" # this is the API Token Secret
+TWITTER_ACCESS_TOKEN="your_access_token" # this is the Access Token
+TWITTER_ACCESS_TOKEN_SECRET="your_access_token_secret" # this is the Access Token Secret
 ```
 
 ### Get your tweet archive
@@ -60,6 +61,7 @@ export TWITTER_ACCESS_TOKEN_SECRET="your_access_token_secret"
 1. Click 'Request data', and wait for the email to arrive
 1. Follow the link in the email to download your Tweet data
 1. Unpack the archive
+1. Copy to here the file `tweet.js`, from `data` directory of Twitter archive
 
 ## Getting started
 
@@ -68,7 +70,11 @@ export TWITTER_ACCESS_TOKEN_SECRET="your_access_token_secret"
 Install the tool using [`pip`](https://pip.pypa.io/).
 
 ```bash
-python3 -m pip install delete-tweets
+python -m pip install delete-tweets
+```
+
+```bash
+pip install -r requirements.txt
 ```
 
 ### Usage
@@ -76,13 +82,13 @@ python3 -m pip install delete-tweets
 Delete any tweet from _before_ January 1, 2018:
 
 ```bash
-delete-tweets --until 2018-01-01 tweet.js
+python deletetweets --until 2018-01-01 tweet.js
 ```
 
 Or only delete all retweets:
 
 ```bash
-delete-tweets --filter retweets tweet.js
+python deletetweets --filter retweets tweet.js
 ```
 
 ### Spare tweets
@@ -91,11 +97,16 @@ You can optionally spare tweets by passing their `id_str`, setting a minimum
 amount of likes or retweets:
 
 ```bash
-delete-tweets --until 2018-01-01 tweet.js --spare-ids 21235434 23498723 23498723
+python deletetweets --until 2018-01-01 tweet.js --spare-ids 21235434 23498723 23498723
 ```
 
 Spare tweets that have at least 10 likes, or 5 retweets:
 
 ```bash
-delete-tweets --until 2018-01-01 tweet.js --spare-min-likes 10 --spare-min-retweets 5
+python deletetweets --until 2018-01-01 tweet.js --spare-min-likes 10 --spare-min-retweets 5
+```
+
+You can also delete tweets since a date (you cannot use a date range):
+```bash
+python deletetweets --since 2020-01-01 tweet.js
 ```

@@ -7,6 +7,8 @@ import twitter
 from datetime import datetime
 from dateutil import parser
 
+from dotenv import load_dotenv
+load_dotenv()
 
 class TweetDestroyer(object):
     def __init__(self, twitter_api, dry_run=False):
